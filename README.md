@@ -17,8 +17,18 @@ MySQL configuration file is in `krash.mysql.cnf`.
 To load and dump, run another mysql process in the same container.
 The container is called `stormy_mysql`.
 
+Dumping:
+
 ```
 docker exec stormy_mysql \
-    sh -c 'exec mysqldump --all-databases \
-    -uroot -p"$MYSQL_ROOT_PASSWORD"' > all-databases.sql
+    sh -c 'exec mysqldump --all-databases -uroot -p"$MYSQL_ROOT_PASSWORD"' > all-databases.sql
 ```
+
+Loading:
+
+```
+docker exec stormy_mysql \
+    sh -c 'exec mysql -u root -p"$MYSQL_ROOT_PASSWORD"' < wikidb_dump.sql
+```
+
+
