@@ -4,6 +4,8 @@
 
 This uses the stock MySQL docker container to run MySQL.
 
+## mysql service info
+
 **Port:** 3306
 
 **Service:** MySQL server
@@ -17,18 +19,27 @@ MySQL configuration file is in `krash.mysql.cnf`.
 To load and dump, run another mysql process in the same container.
 The container is called `stormy_mysql`.
 
-Dumping:
+## dumping
 
 ```
-docker exec stormy_mysql \
-    sh -c 'exec mysqldump --all-databases -uroot -p"$MYSQL_ROOT_PASSWORD"' > all-databases.sql
+docker exec stormy_mysql sh -c 'exec mysqldump --all-databases -uroot -p"$MYSQL_ROOT_PASSWORD"' > all-databases.sql
 ```
 
-Loading:
+or, if the password is stored in a password file,
 
 ```
-docker exec stormy_mysql \
-    sh -c 'exec mysql -u root -p"$MYSQL_ROOT_PASSWORD"' < wikidb_dump.sql
+docker exec stormy_mysql sh -c 'exec mysqldump --all-databases -uroot -p"`cat $MYSQL_ROOT_PASSWORD_FILE`"' > all-databases.sql
 ```
 
+## loading
+
+```
+docker exec stormy_mysql sh -c 'exec mysql -uroot -p"$MYSQL_ROOT_PASSWORD"' < wikidb_dump.sql
+```
+
+or, if it is in a file:
+
+```
+docker exec stormy_mysql sh -c 'exec mysql -uroot -p"`cat $MYSQL_ROOT_PASSWORD_FILE`"' < wikidb_dump.sql
+```
 
