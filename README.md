@@ -1,12 +1,12 @@
 # d-mysql
 
-[link](https://hub.docker.com/_/mysql/)
+[Link to MySQL container on dockerhub](https://hub.docker.com/_/mysql/)
 
 This uses the stock MySQL docker container to run MySQL.
 
-Port: 3306
+**Port:** 3306
 
-Service: MySQL server
+**Service:** MySQL server
 
 MySQL data is stored in `mysql_data/`, bound in the 
 container to `/var/lib/mysql`.
