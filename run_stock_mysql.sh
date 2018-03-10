@@ -7,9 +7,7 @@
 # Set the root password by changing 
 # contents of root.password
 
-MYSQL_DATA_DIR="mysql_data"
 MYSQL_CONFIG="krash.mysql.cnf"
-PW_FILE="root.password"
 
 docker pull mysql:5.7.21
 
@@ -19,10 +17,9 @@ mkdir -p ${PWD}/${MYSQL_DATA_DIR}
 
 docker run \
     --name stormy_mysql \
-    -v ${PWD}/${MYSQL_DATA_DIR}:/var/lib/mysql \
-    -v ${PWD}/${PW_FILE}:/root.password \
+    -v stormy_mysql_data:/var/lib/mysql \
     -v ${PWD}/${MYSQL_CONFIG}:/etc/mysql/conf.d/${MYSQL_CONFIG} \
-    -e MYSQL_ROOT_PASSWORD_FILE=/root.password \
+    -e MYSQL_ROOT_PASSWORD="zeno135" \
     -d \
     mysql:5.7.21
 

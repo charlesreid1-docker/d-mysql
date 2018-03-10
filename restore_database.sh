@@ -2,6 +2,7 @@
 #
 # Restore a database from a .sql file
 # (an SQL dump)
+set -x
 
 function usage {
     echo ""
@@ -17,10 +18,13 @@ function usage {
     echo ""
 }
 
-if [[ "$#" -eq 1 ]];
-then
-    docker exec stormy_mysql sh -c 'exec mysql -uroot -p"`cat $MYSQL_ROOT_PASSWORD_FILE`"' < $1
-else
-    usage
-fi
+MYSQL_ROOT_PASSWORD="zeno135"
+
+#if [[ "$#" -eq 1 ]];
+#then
+#docker exec -i stormy_mysql mysql -uroot -pzeno135 --force wikidb < wikidb_makedb.sql
+docker exec -i stormy_mysql mysql -uroot -pzeno135 --force wikidb < wikidb_dump.sql
+#else
+#    usage
+#fi
 
