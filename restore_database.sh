@@ -17,7 +17,7 @@ function usage {
     echo ""
 }
 
-if [[ "$#" -ne 1 ]];
+if [[ "$#" -eq 1 ]];
 then
     docker exec stormy_mysql sh -c 'exec mysql -uroot -p"`cat $MYSQL_ROOT_PASSWORD_FILE`"' < $1
 else
