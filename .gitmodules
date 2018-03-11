@@ -1,0 +1,3 @@
+[submodule "d-mysql-utilities"]
+	path = d-mysql-utilities
+	url = git@git.charlesreid1.com:docker/d-mysql-utilities.git
