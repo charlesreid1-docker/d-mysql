@@ -13,8 +13,6 @@ docker pull mysql:5.7.21
 
 docker container prune -f
 
-mkdir -p ${PWD}/${MYSQL_DATA_DIR}
-
 docker run \
     --name stormy_mysql \
     -v stormy_mysql_data:/var/lib/mysql \
