@@ -1,4 +1,5 @@
 #!/bin/bash
 
-#docker volume rm stormy_mysql_data
+docker container prune -f
+docker volume rm stormy_mysql_data
 docker volume create stormy_mysql_data

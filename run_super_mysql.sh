@@ -9,8 +9,6 @@
 
 MYSQL_CONFIG="krash.mysql.cnf"
 
-docker pull mysql:5.7.21
-
 docker container prune -f
 
 docker run \
@@ -19,5 +17,5 @@ docker run \
     -v ${PWD}/${MYSQL_CONFIG}:/etc/mysql/conf.d/${MYSQL_CONFIG} \
     -e MYSQL_ROOT_PASSWORD="zeno135" \
     -d \
-    mysql:5.7.21
+    super_mysql
 
