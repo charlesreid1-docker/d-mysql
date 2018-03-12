@@ -4,6 +4,58 @@
 
 This uses the stock MySQL docker container to run MySQL.
 
+## makefile
+
+TLDR: build and run the container with:
+
+```
+make
+```
+
+There are a few make tasks:
+* `build` task - build the MediaWiki docker container
+* `run` task - run the MW docker container
+* `disk` - make a docker volume for the MW container
+* `rm_disk` - remove the docker volume for the MW container
+* `clean` - stop the currently running mysql container
+* `cleanreally` - stop the container and dele the data volume
+
+To stop a running container:
+
+```
+make clean
+```
+
+To stop a running container and delete the data volume:
+
+```
+make cleanreally
+```
+
+To remove the data volume:
+
+```
+make rm_disk
+```
+
+To create the data volume:
+
+```
+make disk
+```
+
+To re-build the container:
+
+```
+make build
+```
+
+To run the container:
+
+```
+make run
+```
+
 ## mysql service info
 
 **Port:** 3306
