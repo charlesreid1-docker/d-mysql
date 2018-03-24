@@ -15,7 +15,7 @@ docker run \
     --name stormy_mysql \
     -v stormy_mysql_data:/var/lib/mysql \
     -v ${PWD}/${MYSQL_CONFIG}:/etc/mysql/conf.d/${MYSQL_CONFIG} \
-    -e MYSQL_ROOT_PASSWORD="zeno135" \
+    -e MYSQL_ROOT_PASSWORD="`cat ../root.password`" \
     -d \
     super_mysql
 
