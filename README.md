@@ -4,6 +4,15 @@
 
 This uses the stock MySQL docker container to run MySQL.
 
+
+## docker-compose
+
+Use docker-compose and pod-charlesreid1 for an example of 
+running a mysql docker container using docker-compose.
+
+The pod uses an environment variable to pass in the root password 
+to the container, so the process is automated.
+
 ## makefile
 
 TLDR: build and run the container with:
