@@ -199,6 +199,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#base-image" title="Base Image" class="md-nav__link">
+    Base Image
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#docker-compose" title="docker-compose" class="md-nav__link">
     docker-compose
   </a>
@@ -220,15 +227,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#dumping" title="dumping" class="md-nav__link">
-    dumping
+  <a href="#creatingrestoring-backups" title="creating/restoring backups" class="md-nav__link">
+    creating/restoring backups
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#loading" title="loading" class="md-nav__link">
-    loading
+  <a href="#phpmyadmin" title="phpMyAdmin" class="md-nav__link">
+    phpMyAdmin
   </a>
   
 </li>
@@ -265,6 +272,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#base-image" title="Base Image" class="md-nav__link">
+    Base Image
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#docker-compose" title="docker-compose" class="md-nav__link">
     docker-compose
   </a>
@@ -286,15 +300,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#dumping" title="dumping" class="md-nav__link">
-    dumping
+  <a href="#creatingrestoring-backups" title="creating/restoring backups" class="md-nav__link">
+    creating/restoring backups
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#loading" title="loading" class="md-nav__link">
-    loading
+  <a href="#phpmyadmin" title="phpMyAdmin" class="md-nav__link">
+    phpMyAdmin
   </a>
   
 </li>
@@ -317,47 +331,46 @@
                 
                 
                 <h1 id="d-mysql">d-mysql</h1>
-<p><a href="https://hub.docker.com/_/mysql/">Link to MySQL container on dockerhub</a></p>
-<p>This uses the stock MySQL docker container to run MySQL.</p>
+<p>This is the MySQL docker container used to run MySQL on charlesreid1.com.</p>
+<p>You should not run this container by itself (see 
+<a href="https://git.charlesreid1.com/docker/pod-charlesreid1.git">pod-charlesreid1</a>), 
+but if you do, use the <code>Makefile</code>.</p>
+<h2 id="base-image">Base Image</h2>
+<p>This repo contains a Dockerfile and a docker-compose file 
+for running a slightly modified stock MySQL container.</p>
+<p><a href="https://hub.docker.com/_/mysql/">Link to stock MySQL container on dockerhub</a></p>
 <h2 id="docker-compose">docker-compose</h2>
 <p>Use docker-compose and pod-charlesreid1 for an example of 
 running a mysql docker container using docker-compose.</p>
 <p>The pod uses an environment variable to pass in the root password 
 to the container, so the process is automated.</p>
+<p>See <code>docker-compose.fixme.yml</code> in 
+<a href="https://git.charlesreid1.com/docker/pod-charlesreid1.git">pod-charlesreid1</a>.</p>
+<p>This repo uses plain <code>docker</code> commands.</p>
 <h2 id="makefile">makefile</h2>
 <p>TLDR: build and run the container with:</p>
 <pre><code>make
 </code></pre>
 
-<p>There are a few make tasks:
-<em> <code>build</code> task - build the MediaWiki docker container
-</em> <code>run</code> task - run the MW docker container
-<em> <code>disk</code> - make a docker volume for the MW container
-</em> <code>rm_disk</code> - remove the docker volume for the MW container
-<em> <code>clean</code> - stop the currently running mysql container
-</em> <code>cleanreally</code> - stop the container and dele the data volume</p>
-<p>To stop a running container:</p>
-<pre><code>make clean
+<p>There are a few make tasks:</p>
+<ul>
+<li><code>make build</code> task - build the MediaWiki docker container</li>
+<li><code>make run</code> task - run the MW docker container</li>
+<li><code>make disk</code> - make a docker volume for the MW container</li>
+<li><code>make rm_disk</code> - remove the docker volume for the MW container</li>
+<li><code>make clean</code> - stop the currently running mysql container</li>
+<li><code>make cleanreally</code> - stop the container and dele the data volume</li>
+</ul>
+<p>Some cleanup commands:</p>
+<pre><code>make clean       # stop running container
+make cleanreally # CAREFUL!!! deletes the data volume 
+make rm_disk     # CAREFUL!!! deletes the data volume
 </code></pre>
 
-<p>To stop a running container and delete the data volume:</p>
-<pre><code>make cleanreally
-</code></pre>
-
-<p>To remove the data volume:</p>
-<pre><code>make rm_disk
-</code></pre>
-
-<p>To create the data volume:</p>
-<pre><code>make disk
-</code></pre>
-
-<p>To re-build the container:</p>
-<pre><code>make build
-</code></pre>
-
-<p>To run the container:</p>
-<pre><code>make run
+<p>Some startup commands:</p>
+<pre><code>make disk   # make the disk
+make build  # re-build container
+make run    # run container
 </code></pre>
 
 <h2 id="mysql-service-info">mysql service info</h2>
@@ -369,21 +382,19 @@ container to <code>/var/lib/mysql</code>.</p>
 (create your alternative configuration file in a directory on the host machine and then mount that directory location as /etc/mysql/conf.d inside the mysql container.)</p>
 <p>To load and dump, run another mysql process in the same container.
 The container is called <code>stormy_mysql</code>.</p>
-<h2 id="dumping">dumping</h2>
-<pre><code>docker exec stormy_mysql sh -c 'exec mysqldump --all-databases -uroot -p&quot;$MYSQL_ROOT_PASSWORD&quot;' &gt; all-databases.sql
-</code></pre>
-
-<p>or, if the password is stored in a password file,</p>
-<pre><code>docker exec stormy_mysql sh -c 'exec mysqldump --all-databases -uroot -p&quot;`cat $MYSQL_ROOT_PASSWORD_FILE`&quot;' &gt; all-databases.sql
-</code></pre>
-
-<h2 id="loading">loading</h2>
-<pre><code>docker exec stormy_mysql sh -c 'exec mysql -uroot -p&quot;$MYSQL_ROOT_PASSWORD&quot;' &lt; wikidb_dump.sql
-</code></pre>
-
-<p>or, if it is in a file:</p>
-<pre><code>docker exec stormy_mysql sh -c 'exec mysql -uroot -p&quot;`cat $MYSQL_ROOT_PASSWORD_FILE`&quot;' &lt; wikidb_dump.sql
-</code></pre>
+<h2 id="creatingrestoring-backups">creating/restoring backups</h2>
+<p>See the directory <a href="https://git.charlesreid1.com/docker/pod-charlesreid1/src/branch/master/utils-mysql"><code>utils-mysql/</code></a>
+in the <a href="https://git.charlesreid1.com/docker/pod-charlesreid1">pod-charlesreid1</a>
+repo.</p>
+<p>(Basically, these create a shell inside the container,
+and run commands to dump the database and copy the data
+out, or copy the data in and restore the database.)</p>
+<h2 id="phpmyadmin">phpMyAdmin</h2>
+<p>While MySQL is a useful tool, the command line interface
+and SQL syntax is annoying and clunky.</p>
+<p>To fix that, use phpMyAdmin - or better yet, use it in 
+a docker container. See <a href="https://git.charlesreid1.com/docker/d-phpmyadmin">d-phpmyadmin</a>
+repo for details.</p>
                 
                   
                 
