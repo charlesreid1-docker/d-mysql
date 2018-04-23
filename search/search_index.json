@@ -1,0 +1,39 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "d-mysql\n\n\nLink to MySQL container on dockerhub\n\n\nThis uses the stock MySQL docker container to run MySQL.\n\n\ndocker-compose\n\n\nUse docker-compose and pod-charlesreid1 for an example of \nrunning a mysql docker container using docker-compose.\n\n\nThe pod uses an environment variable to pass in the root password \nto the container, so the process is automated.\n\n\nmakefile\n\n\nTLDR: build and run the container with:\n\n\nmake\n\n\n\n\nThere are a few make tasks:\n\n \nbuild\n task - build the MediaWiki docker container\n\n \nrun\n task - run the MW docker container\n\n \ndisk\n - make a docker volume for the MW container\n\n \nrm_disk\n - remove the docker volume for the MW container\n\n \nclean\n - stop the currently running mysql container\n\n \ncleanreally\n - stop the container and dele the data volume\n\n\nTo stop a running container:\n\n\nmake clean\n\n\n\n\nTo stop a running container and delete the data volume:\n\n\nmake cleanreally\n\n\n\n\nTo remove the data volume:\n\n\nmake rm_disk\n\n\n\n\nTo create the data volume:\n\n\nmake disk\n\n\n\n\nTo re-build the container:\n\n\nmake build\n\n\n\n\nTo run the container:\n\n\nmake run\n\n\n\n\nmysql service info\n\n\nPort:\n 3306\n\n\nService:\n MySQL server\n\n\nMySQL data is stored in \nmysql_data/\n, bound in the \ncontainer to \n/var/lib/mysql\n.\n\n\nMySQL configuration file is in \nkrash.mysql.cnf\n.\n(create your alternative configuration file in a directory on the host machine and then mount that directory location as /etc/mysql/conf.d inside the mysql container.)\n\n\nTo load and dump, run another mysql process in the same container.\nThe container is called \nstormy_mysql\n.\n\n\ndumping\n\n\ndocker exec stormy_mysql sh -c 'exec mysqldump --all-databases -uroot -p\"$MYSQL_ROOT_PASSWORD\"' > all-databases.sql\n\n\n\n\nor, if the password is stored in a password file,\n\n\ndocker exec stormy_mysql sh -c 'exec mysqldump --all-databases -uroot -p\"`cat $MYSQL_ROOT_PASSWORD_FILE`\"' > all-databases.sql\n\n\n\n\nloading\n\n\ndocker exec stormy_mysql sh -c 'exec mysql -uroot -p\"$MYSQL_ROOT_PASSWORD\"' < wikidb_dump.sql\n\n\n\n\nor, if it is in a file:\n\n\ndocker exec stormy_mysql sh -c 'exec mysql -uroot -p\"`cat $MYSQL_ROOT_PASSWORD_FILE`\"' < wikidb_dump.sql",
+            "title": "Home"
+        },
+        {
+            "location": "/#d-mysql",
+            "text": "Link to MySQL container on dockerhub  This uses the stock MySQL docker container to run MySQL.",
+            "title": "d-mysql"
+        },
+        {
+            "location": "/#docker-compose",
+            "text": "Use docker-compose and pod-charlesreid1 for an example of \nrunning a mysql docker container using docker-compose.  The pod uses an environment variable to pass in the root password \nto the container, so the process is automated.",
+            "title": "docker-compose"
+        },
+        {
+            "location": "/#makefile",
+            "text": "TLDR: build and run the container with:  make  There are a few make tasks:   build  task - build the MediaWiki docker container   run  task - run the MW docker container   disk  - make a docker volume for the MW container   rm_disk  - remove the docker volume for the MW container   clean  - stop the currently running mysql container   cleanreally  - stop the container and dele the data volume  To stop a running container:  make clean  To stop a running container and delete the data volume:  make cleanreally  To remove the data volume:  make rm_disk  To create the data volume:  make disk  To re-build the container:  make build  To run the container:  make run",
+            "title": "makefile"
+        },
+        {
+            "location": "/#mysql-service-info",
+            "text": "Port:  3306  Service:  MySQL server  MySQL data is stored in  mysql_data/ , bound in the \ncontainer to  /var/lib/mysql .  MySQL configuration file is in  krash.mysql.cnf .\n(create your alternative configuration file in a directory on the host machine and then mount that directory location as /etc/mysql/conf.d inside the mysql container.)  To load and dump, run another mysql process in the same container.\nThe container is called  stormy_mysql .",
+            "title": "mysql service info"
+        },
+        {
+            "location": "/#dumping",
+            "text": "docker exec stormy_mysql sh -c 'exec mysqldump --all-databases -uroot -p\"$MYSQL_ROOT_PASSWORD\"' > all-databases.sql  or, if the password is stored in a password file,  docker exec stormy_mysql sh -c 'exec mysqldump --all-databases -uroot -p\"`cat $MYSQL_ROOT_PASSWORD_FILE`\"' > all-databases.sql",
+            "title": "dumping"
+        },
+        {
+            "location": "/#loading",
+            "text": "docker exec stormy_mysql sh -c 'exec mysql -uroot -p\"$MYSQL_ROOT_PASSWORD\"' < wikidb_dump.sql  or, if it is in a file:  docker exec stormy_mysql sh -c 'exec mysql -uroot -p\"`cat $MYSQL_ROOT_PASSWORD_FILE`\"' < wikidb_dump.sql",
+            "title": "loading"
+        }
+    ]
+}
