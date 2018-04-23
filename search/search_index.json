@@ -2,43 +2,38 @@
     "docs": [
         {
             "location": "/",
-            "text": "d-mysql\n\n\nThis is the MySQL docker container used to run MySQL on charlesreid1.com.\n\n\nYou should not run this container by itself (see \n\npod-charlesreid1\n), \nbut if you do, use the \nMakefile\n.\n\n\nBase Image\n\n\nThis repo contains a Dockerfile and a docker-compose file \nfor running a slightly modified stock MySQL container.\n\n\nLink to stock MySQL container on dockerhub\n\n\ndocker-compose\n\n\nUse docker-compose and pod-charlesreid1 for an example of \nrunning a mysql docker container using docker-compose.\n\n\nThe pod uses an environment variable to pass in the root password \nto the container, so the process is automated.\n\n\nSee \ndocker-compose.fixme.yml\n in \n\npod-charlesreid1\n.\n\n\nThis repo uses plain \ndocker\n commands.\n\n\nmakefile\n\n\nTLDR: build and run the container with:\n\n\nmake\n\n\n\n\nThere are a few make tasks:\n\n\n\n\nmake build\n task - build the MediaWiki docker container\n\n\nmake run\n task - run the MW docker container\n\n\nmake disk\n - make a docker volume for the MW container\n\n\nmake rm_disk\n - remove the docker volume for the MW container\n\n\nmake clean\n - stop the currently running mysql container\n\n\nmake cleanreally\n - stop the container and dele the data volume\n\n\n\n\nSome cleanup commands:\n\n\nmake clean       # stop running container\nmake cleanreally # CAREFUL!!! deletes the data volume \nmake rm_disk     # CAREFUL!!! deletes the data volume\n\n\n\n\nSome startup commands:\n\n\nmake disk   # make the disk\nmake build  # re-build container\nmake run    # run container\n\n\n\n\nmysql service info\n\n\nPort:\n 3306\n\n\nService:\n MySQL server\n\n\nMySQL data is stored in \nmysql_data/\n, bound in the \ncontainer to \n/var/lib/mysql\n.\n\n\nMySQL configuration file is in \nkrash.mysql.cnf\n.\n(create your alternative configuration file in a directory on the host machine and then mount that directory location as /etc/mysql/conf.d inside the mysql container.)\n\n\nTo load and dump, run another mysql process in the same container.\nThe container is called \nstormy_mysql\n.\n\n\ncreating/restoring backups\n\n\nSee the directory \nutils-mysql/\n\nin the \npod-charlesreid1\n\nrepo.\n\n\n(Basically, these create a shell inside the container,\nand run commands to dump the database and copy the data\nout, or copy the data in and restore the database.)\n\n\nphpMyAdmin\n\n\nWhile MySQL is a useful tool, the command line interface\nand SQL syntax is annoying and clunky.\n\n\nTo fix that, use phpMyAdmin - or better yet, use it in \na docker container. See \nd-phpmyadmin\n\nrepo for details.",
+            "text": "d-mediawiki\n\n\nThis directory contains a Dockerfile that adds a slight tweak \nto the official MediaWiki docker container. Before launching\nthe container, it specifies \n/var/www/html\n as a mounted volume, \nand it copies \nLocalSettings.php\n, the MediaWiki config file, \nfrom this repo into the container.\n\n\nUse the run script to run the docker container.\nThe run script expects the MySQL container to be\ncalled \nstormy_mysql\n and for MySQL to be listening\non the standard MySQL port, 3306.\n\n\nSee \nd-mysql repo\n.\n\n\nDocker Compose\n\n\nTo use this container as part of a pod for the charlesreid1.com wiki, see \npod-charlesreid1-wiki\n.\n\n\nTo use the container standalone, keep reading.\n\n\nTroubleshooting\n\n\nIf you are seeing 404s on every page you try, it may be because \nyour MediaWiki config file is set to redirect you to \n/wiki/Main_Page\n\nbut your web server is not set up to handle it.\n\n\nSee \nthis lin\n\nand the guide for \napache\n\nand \nnginx\n.\n\n\nMake Tasks\n\n\nQuick start:\n\n\nmake\n\n\n\n\nThis will run the build and run tasks.\n\n\nThere are a few make tasks:\n\n \nbuild\n task - build the MediaWiki docker container\n\n \nrun\n task - run the MW docker container\n\n \ndisk\n - make a docker volume for the MW container\n\n \nrm_disk\n - remove the docker volume for the MW container\n\n \nclean\n - stop the currently running mysql container\n\n \ncleanreally\n - stop the container and dele the data volume\n\n\nTo stop a running container:\n\n\nmake clean\n\n\n\n\nTo stop a running container and delete the data volume:\n\n\nmake cleanreally\n\n\n\n\nTo remove the data volume:\n\n\nmake rm_disk\n\n\n\n\nTo create the data volume:\n\n\nmake disk\n\n\n\n\nTo re-build the container:\n\n\nmake build\n\n\n\n\nTo run the container:\n\n\nmake run\n\n\n\n\nUpdating Settings\n\n\nTo update LocalSettings.php, skins, or extensions,\nyou will need to re-make the Docker container.\nUse the make rules to remake the Docker container:\n\n\nmake clean\nmake build\nmake run\n\n\n\n\nSubmodule\n\n\nTo clone the repo with the submodule:\n\n\ngit clone --recursive https://charlesreid1.com:3000/docker/d-mediawiki.git\n\n\n\n\nTo check out the submodule after a shallow clone:\n\n\ngit submodule init\n# or \ngit submodule update --init \n\n\n\n\nTo fetch changes to the submodule from the submodule's remote:\n\n\ngit submodule update --remote",
             "title": "Home"
         },
         {
-            "location": "/#d-mysql",
-            "text": "This is the MySQL docker container used to run MySQL on charlesreid1.com.  You should not run this container by itself (see  pod-charlesreid1 ), \nbut if you do, use the  Makefile .",
-            "title": "d-mysql"
-        },
-        {
-            "location": "/#base-image",
-            "text": "This repo contains a Dockerfile and a docker-compose file \nfor running a slightly modified stock MySQL container.  Link to stock MySQL container on dockerhub",
-            "title": "Base Image"
+            "location": "/#d-mediawiki",
+            "text": "This directory contains a Dockerfile that adds a slight tweak \nto the official MediaWiki docker container. Before launching\nthe container, it specifies  /var/www/html  as a mounted volume, \nand it copies  LocalSettings.php , the MediaWiki config file, \nfrom this repo into the container.  Use the run script to run the docker container.\nThe run script expects the MySQL container to be\ncalled  stormy_mysql  and for MySQL to be listening\non the standard MySQL port, 3306.  See  d-mysql repo .",
+            "title": "d-mediawiki"
         },
         {
             "location": "/#docker-compose",
-            "text": "Use docker-compose and pod-charlesreid1 for an example of \nrunning a mysql docker container using docker-compose.  The pod uses an environment variable to pass in the root password \nto the container, so the process is automated.  See  docker-compose.fixme.yml  in  pod-charlesreid1 .  This repo uses plain  docker  commands.",
-            "title": "docker-compose"
+            "text": "To use this container as part of a pod for the charlesreid1.com wiki, see  pod-charlesreid1-wiki .  To use the container standalone, keep reading.",
+            "title": "Docker Compose"
         },
         {
-            "location": "/#makefile",
-            "text": "TLDR: build and run the container with:  make  There are a few make tasks:   make build  task - build the MediaWiki docker container  make run  task - run the MW docker container  make disk  - make a docker volume for the MW container  make rm_disk  - remove the docker volume for the MW container  make clean  - stop the currently running mysql container  make cleanreally  - stop the container and dele the data volume   Some cleanup commands:  make clean       # stop running container\nmake cleanreally # CAREFUL!!! deletes the data volume \nmake rm_disk     # CAREFUL!!! deletes the data volume  Some startup commands:  make disk   # make the disk\nmake build  # re-build container\nmake run    # run container",
-            "title": "makefile"
+            "location": "/#troubleshooting",
+            "text": "If you are seeing 404s on every page you try, it may be because \nyour MediaWiki config file is set to redirect you to  /wiki/Main_Page \nbut your web server is not set up to handle it.  See  this lin \nand the guide for  apache \nand  nginx .",
+            "title": "Troubleshooting"
         },
         {
-            "location": "/#mysql-service-info",
-            "text": "Port:  3306  Service:  MySQL server  MySQL data is stored in  mysql_data/ , bound in the \ncontainer to  /var/lib/mysql .  MySQL configuration file is in  krash.mysql.cnf .\n(create your alternative configuration file in a directory on the host machine and then mount that directory location as /etc/mysql/conf.d inside the mysql container.)  To load and dump, run another mysql process in the same container.\nThe container is called  stormy_mysql .",
-            "title": "mysql service info"
+            "location": "/#make-tasks",
+            "text": "Quick start:  make  This will run the build and run tasks.  There are a few make tasks:   build  task - build the MediaWiki docker container   run  task - run the MW docker container   disk  - make a docker volume for the MW container   rm_disk  - remove the docker volume for the MW container   clean  - stop the currently running mysql container   cleanreally  - stop the container and dele the data volume  To stop a running container:  make clean  To stop a running container and delete the data volume:  make cleanreally  To remove the data volume:  make rm_disk  To create the data volume:  make disk  To re-build the container:  make build  To run the container:  make run",
+            "title": "Make Tasks"
         },
         {
-            "location": "/#creatingrestoring-backups",
-            "text": "See the directory  utils-mysql/ \nin the  pod-charlesreid1 \nrepo.  (Basically, these create a shell inside the container,\nand run commands to dump the database and copy the data\nout, or copy the data in and restore the database.)",
-            "title": "creating/restoring backups"
+            "location": "/#updating-settings",
+            "text": "To update LocalSettings.php, skins, or extensions,\nyou will need to re-make the Docker container.\nUse the make rules to remake the Docker container:  make clean\nmake build\nmake run",
+            "title": "Updating Settings"
         },
         {
-            "location": "/#phpmyadmin",
-            "text": "While MySQL is a useful tool, the command line interface\nand SQL syntax is annoying and clunky.  To fix that, use phpMyAdmin - or better yet, use it in \na docker container. See  d-phpmyadmin \nrepo for details.",
-            "title": "phpMyAdmin"
+            "location": "/#submodule",
+            "text": "To clone the repo with the submodule:  git clone --recursive https://charlesreid1.com:3000/docker/d-mediawiki.git  To check out the submodule after a shallow clone:  git submodule init\n# or \ngit submodule update --init   To fetch changes to the submodule from the submodule's remote:  git submodule update --remote",
+            "title": "Submodule"
         }
     ]
 }

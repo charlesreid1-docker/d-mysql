@@ -36,7 +36,7 @@
     
     
       
-        <title>d-mysql</title>
+        <title>d-mediawiki</title>
       
     
     
@@ -76,7 +76,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
     
-      <a href="#d-mysql" tabindex="1" class="md-skip">
+      <a href="#d-mediawiki" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -85,7 +85,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="." title="d-mysql" class="md-header-nav__button md-logo">
+        <a href="." title="d-mediawiki" class="md-header-nav__button md-logo">
           
             <i class="md-icon">input</i>
           
@@ -99,7 +99,7 @@
           
             
               <span class="md-header-nav__topic">
-                d-mysql
+                d-mediawiki
               </span>
               <span class="md-header-nav__topic">
                 Home
@@ -161,7 +161,7 @@
         <i class="md-icon">input</i>
       
     </span>
-    d-mysql
+    d-mediawiki
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -199,43 +199,36 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#base-image" title="Base Image" class="md-nav__link">
-    Base Image
+  <a href="#docker-compose" title="Docker Compose" class="md-nav__link">
+    Docker Compose
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#docker-compose" title="docker-compose" class="md-nav__link">
-    docker-compose
+  <a href="#troubleshooting" title="Troubleshooting" class="md-nav__link">
+    Troubleshooting
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#makefile" title="makefile" class="md-nav__link">
-    makefile
+  <a href="#make-tasks" title="Make Tasks" class="md-nav__link">
+    Make Tasks
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#mysql-service-info" title="mysql service info" class="md-nav__link">
-    mysql service info
+  <a href="#updating-settings" title="Updating Settings" class="md-nav__link">
+    Updating Settings
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#creatingrestoring-backups" title="creating/restoring backups" class="md-nav__link">
-    creating/restoring backups
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#phpmyadmin" title="phpMyAdmin" class="md-nav__link">
-    phpMyAdmin
+  <a href="#submodule" title="Submodule" class="md-nav__link">
+    Submodule
   </a>
   
 </li>
@@ -272,43 +265,36 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#base-image" title="Base Image" class="md-nav__link">
-    Base Image
+  <a href="#docker-compose" title="Docker Compose" class="md-nav__link">
+    Docker Compose
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#docker-compose" title="docker-compose" class="md-nav__link">
-    docker-compose
+  <a href="#troubleshooting" title="Troubleshooting" class="md-nav__link">
+    Troubleshooting
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#makefile" title="makefile" class="md-nav__link">
-    makefile
+  <a href="#make-tasks" title="Make Tasks" class="md-nav__link">
+    Make Tasks
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#mysql-service-info" title="mysql service info" class="md-nav__link">
-    mysql service info
+  <a href="#updating-settings" title="Updating Settings" class="md-nav__link">
+    Updating Settings
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#creatingrestoring-backups" title="creating/restoring backups" class="md-nav__link">
-    creating/restoring backups
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#phpmyadmin" title="phpMyAdmin" class="md-nav__link">
-    phpMyAdmin
+  <a href="#submodule" title="Submodule" class="md-nav__link">
+    Submodule
   </a>
   
 </li>
@@ -330,71 +316,87 @@
               
                 
                 
-                <h1 id="d-mysql">d-mysql</h1>
-<p>This is the MySQL docker container used to run MySQL on charlesreid1.com.</p>
-<p>You should not run this container by itself (see 
-<a href="https://git.charlesreid1.com/docker/pod-charlesreid1.git">pod-charlesreid1</a>), 
-but if you do, use the <code>Makefile</code>.</p>
-<h2 id="base-image">Base Image</h2>
-<p>This repo contains a Dockerfile and a docker-compose file 
-for running a slightly modified stock MySQL container.</p>
-<p><a href="https://hub.docker.com/_/mysql/">Link to stock MySQL container on dockerhub</a></p>
-<h2 id="docker-compose">docker-compose</h2>
-<p>Use docker-compose and pod-charlesreid1 for an example of 
-running a mysql docker container using docker-compose.</p>
-<p>The pod uses an environment variable to pass in the root password 
-to the container, so the process is automated.</p>
-<p>See <code>docker-compose.fixme.yml</code> in 
-<a href="https://git.charlesreid1.com/docker/pod-charlesreid1.git">pod-charlesreid1</a>.</p>
-<p>This repo uses plain <code>docker</code> commands.</p>
-<h2 id="makefile">makefile</h2>
-<p>TLDR: build and run the container with:</p>
+                <h1 id="d-mediawiki">d-mediawiki</h1>
+<p>This directory contains a Dockerfile that adds a slight tweak 
+to the official MediaWiki docker container. Before launching
+the container, it specifies <code>/var/www/html</code> as a mounted volume, 
+and it copies <code>LocalSettings.php</code>, the MediaWiki config file, 
+from this repo into the container.</p>
+<p>Use the run script to run the docker container.
+The run script expects the MySQL container to be
+called <code>stormy_mysql</code> and for MySQL to be listening
+on the standard MySQL port, 3306.</p>
+<p>See <a href="https://charlesreid1.com:3000/docker/d-mysql">d-mysql repo</a>.</p>
+<h2 id="docker-compose">Docker Compose</h2>
+<p>To use this container as part of a pod for the charlesreid1.com wiki, see <a href="https://charlesreid1.com:3000/docker/pod-charlesreid1-wiki">pod-charlesreid1-wiki</a>.</p>
+<p>To use the container standalone, keep reading.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>If you are seeing 404s on every page you try, it may be because 
+your MediaWiki config file is set to redirect you to <code>/wiki/Main_Page</code>
+but your web server is not set up to handle it.</p>
+<p>See <a href="https://www.mediawiki.org/wiki/Manual:Short_URL">this lin</a>
+and the guide for <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Short_URL/Apache">apache</a>
+and <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Short_URL/Nginx">nginx</a>.</p>
+<h2 id="make-tasks">Make Tasks</h2>
+<p>Quick start:</p>
 <pre><code>make
 </code></pre>
 
-<p>There are a few make tasks:</p>
-<ul>
-<li><code>make build</code> task - build the MediaWiki docker container</li>
-<li><code>make run</code> task - run the MW docker container</li>
-<li><code>make disk</code> - make a docker volume for the MW container</li>
-<li><code>make rm_disk</code> - remove the docker volume for the MW container</li>
-<li><code>make clean</code> - stop the currently running mysql container</li>
-<li><code>make cleanreally</code> - stop the container and dele the data volume</li>
-</ul>
-<p>Some cleanup commands:</p>
-<pre><code>make clean       # stop running container
-make cleanreally # CAREFUL!!! deletes the data volume 
-make rm_disk     # CAREFUL!!! deletes the data volume
+<p>This will run the build and run tasks.</p>
+<p>There are a few make tasks:
+<em> <code>build</code> task - build the MediaWiki docker container
+</em> <code>run</code> task - run the MW docker container
+<em> <code>disk</code> - make a docker volume for the MW container
+</em> <code>rm_disk</code> - remove the docker volume for the MW container
+<em> <code>clean</code> - stop the currently running mysql container
+</em> <code>cleanreally</code> - stop the container and dele the data volume</p>
+<p>To stop a running container:</p>
+<pre><code>make clean
 </code></pre>
 
-<p>Some startup commands:</p>
-<pre><code>make disk   # make the disk
-make build  # re-build container
-make run    # run container
+<p>To stop a running container and delete the data volume:</p>
+<pre><code>make cleanreally
 </code></pre>
 
-<h2 id="mysql-service-info">mysql service info</h2>
-<p><strong>Port:</strong> 3306</p>
-<p><strong>Service:</strong> MySQL server</p>
-<p>MySQL data is stored in <code>mysql_data/</code>, bound in the 
-container to <code>/var/lib/mysql</code>.</p>
-<p>MySQL configuration file is in <code>krash.mysql.cnf</code>.
-(create your alternative configuration file in a directory on the host machine and then mount that directory location as /etc/mysql/conf.d inside the mysql container.)</p>
-<p>To load and dump, run another mysql process in the same container.
-The container is called <code>stormy_mysql</code>.</p>
-<h2 id="creatingrestoring-backups">creating/restoring backups</h2>
-<p>See the directory <a href="https://git.charlesreid1.com/docker/pod-charlesreid1/src/branch/master/utils-mysql"><code>utils-mysql/</code></a>
-in the <a href="https://git.charlesreid1.com/docker/pod-charlesreid1">pod-charlesreid1</a>
-repo.</p>
-<p>(Basically, these create a shell inside the container,
-and run commands to dump the database and copy the data
-out, or copy the data in and restore the database.)</p>
-<h2 id="phpmyadmin">phpMyAdmin</h2>
-<p>While MySQL is a useful tool, the command line interface
-and SQL syntax is annoying and clunky.</p>
-<p>To fix that, use phpMyAdmin - or better yet, use it in 
-a docker container. See <a href="https://git.charlesreid1.com/docker/d-phpmyadmin">d-phpmyadmin</a>
-repo for details.</p>
+<p>To remove the data volume:</p>
+<pre><code>make rm_disk
+</code></pre>
+
+<p>To create the data volume:</p>
+<pre><code>make disk
+</code></pre>
+
+<p>To re-build the container:</p>
+<pre><code>make build
+</code></pre>
+
+<p>To run the container:</p>
+<pre><code>make run
+</code></pre>
+
+<h2 id="updating-settings">Updating Settings</h2>
+<p>To update LocalSettings.php, skins, or extensions,
+you will need to re-make the Docker container.
+Use the make rules to remake the Docker container:</p>
+<pre><code>make clean
+make build
+make run
+</code></pre>
+
+<h2 id="submodule">Submodule</h2>
+<p>To clone the repo with the submodule:</p>
+<pre><code>git clone --recursive https://charlesreid1.com:3000/docker/d-mediawiki.git
+</code></pre>
+
+<p>To check out the submodule after a shallow clone:</p>
+<pre><code>git submodule init
+# or 
+git submodule update --init 
+</code></pre>
+
+<p>To fetch changes to the submodule from the submodule's remote:</p>
+<pre><code>git submodule update --remote
+</code></pre>
                 
                   
                 
