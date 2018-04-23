@@ -1,9 +1,17 @@
 # d-mysql
 
-[Link to MySQL container on dockerhub](https://hub.docker.com/_/mysql/)
+This is the MySQL docker container used to run MySQL on charlesreid1.com.
 
-This uses the stock MySQL docker container to run MySQL.
+You should not run this container by itself (see 
+[pod-charlesreid1](https://git.charlesreid1.com/docker/pod-charlesreid1.git)), 
+but if you do, use the `Makefile`.
 
+## Base Image
+
+This repo contains a Dockerfile and a docker-compose file 
+for running a slightly modified stock MySQL container.
+
+[Link to stock MySQL container on dockerhub](https://hub.docker.com/_/mysql/)
 
 ## docker-compose
 
@@ -12,6 +20,11 @@ running a mysql docker container using docker-compose.
 
 The pod uses an environment variable to pass in the root password 
 to the container, so the process is automated.
+
+See `docker-compose.fixme.yml` in 
+[pod-charlesreid1](https://git.charlesreid1.com/docker/pod-charlesreid1.git).
+
+This repo uses plain `docker` commands.
 
 ## makefile
 
@@ -22,47 +35,28 @@ make
 ```
 
 There are a few make tasks:
-* `build` task - build the MediaWiki docker container
-* `run` task - run the MW docker container
-* `disk` - make a docker volume for the MW container
-* `rm_disk` - remove the docker volume for the MW container
-* `clean` - stop the currently running mysql container
-* `cleanreally` - stop the container and dele the data volume
 
-To stop a running container:
+* `make build` task - build the MediaWiki docker container
+* `make run` task - run the MW docker container
+* `make disk` - make a docker volume for the MW container
+* `make rm_disk` - remove the docker volume for the MW container
+* `make clean` - stop the currently running mysql container
+* `make cleanreally` - stop the container and dele the data volume
 
-```
-make clean
-```
-
-To stop a running container and delete the data volume:
+Some cleanup commands:
 
 ```
-make cleanreally
+make clean       # stop running container
+make cleanreally # CAREFUL!!! deletes the data volume 
+make rm_disk     # CAREFUL!!! deletes the data volume
 ```
 
-To remove the data volume:
+Some startup commands:
 
 ```
-make rm_disk
-```
-
-To create the data volume:
-
-```
-make disk
-```
-
-To re-build the container:
-
-```
-make build
-```
-
-To run the container:
-
-```
-make run
+make disk   # make the disk
+make build  # re-build container
+make run    # run container
 ```
 
 ## mysql service info
@@ -80,27 +74,23 @@ MySQL configuration file is in `krash.mysql.cnf`.
 To load and dump, run another mysql process in the same container.
 The container is called `stormy_mysql`.
 
-## dumping
 
-```
-docker exec stormy_mysql sh -c 'exec mysqldump --all-databases -uroot -p"$MYSQL_ROOT_PASSWORD"' > all-databases.sql
-```
+## creating/restoring backups
 
-or, if the password is stored in a password file,
+See the directory [`utils-mysql/`](https://git.charlesreid1.com/docker/pod-charlesreid1/src/branch/master/utils-mysql)
+in the [pod-charlesreid1](https://git.charlesreid1.com/docker/pod-charlesreid1)
+repo.
 
-```
-docker exec stormy_mysql sh -c 'exec mysqldump --all-databases -uroot -p"`cat $MYSQL_ROOT_PASSWORD_FILE`"' > all-databases.sql
-```
+(Basically, these create a shell inside the container,
+and run commands to dump the database and copy the data
+out, or copy the data in and restore the database.)
 
-## loading
+## phpMyAdmin
 
-```
-docker exec stormy_mysql sh -c 'exec mysql -uroot -p"$MYSQL_ROOT_PASSWORD"' < wikidb_dump.sql
-```
+While MySQL is a useful tool, the command line interface
+and SQL syntax is annoying and clunky.
 
-or, if it is in a file:
-
-```
-docker exec stormy_mysql sh -c 'exec mysql -uroot -p"`cat $MYSQL_ROOT_PASSWORD_FILE`"' < wikidb_dump.sql
-```
+To fix that, use phpMyAdmin - or better yet, use it in 
+a docker container. See [d-phpmyadmin](https://git.charlesreid1.com/docker/d-phpmyadmin)
+repo for details.
 
