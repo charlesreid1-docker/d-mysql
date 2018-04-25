@@ -11,6 +11,8 @@
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       
       
+        <link rel="canonical" href="https://pages.charlesreid1.com/d-mysql/">
+      
       
       
         <meta name="lang:clipboard.copy" content="Copy to clipboard">
@@ -85,7 +87,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="." title="d-mysql" class="md-header-nav__button md-logo">
+        <a href="https://pages.charlesreid1.com/d-mysql" title="d-mysql" class="md-header-nav__button md-logo">
           
             <i class="md-icon">input</i>
           
@@ -139,6 +141,24 @@
         
       </div>
       
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://git.charlesreid1.com/docker/d-mysql" title="Go to repository" class="md-source" data-md-source="">
+    
+    <div class="md-source__repository">
+      d-mysql
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
     </div>
   </nav>
 </header>
@@ -163,6 +183,22 @@
     </span>
     d-mysql
   </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://git.charlesreid1.com/docker/d-mysql" title="Go to repository" class="md-source" data-md-source="">
+    
+    <div class="md-source__repository">
+      d-mysql
+    </div>
+  </a>
+
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -330,16 +366,16 @@
               
                 
                 
-                <h1 id="d-mysql">d-mysql</h1>
+                <h1 id="d-mysql">d-mysql<a class="headerlink" href="#d-mysql" title="Permanent link">&para;</a></h1>
 <p>This is the MySQL docker container used to run MySQL on charlesreid1.com.</p>
 <p>You should not run this container by itself (see 
 <a href="https://git.charlesreid1.com/docker/pod-charlesreid1.git">pod-charlesreid1</a>), 
 but if you do, use the <code>Makefile</code>.</p>
-<h2 id="base-image">Base Image</h2>
+<h2 id="base-image">Base Image<a class="headerlink" href="#base-image" title="Permanent link">&para;</a></h2>
 <p>This repo contains a Dockerfile and a docker-compose file 
 for running a slightly modified stock MySQL container.</p>
 <p><a href="https://hub.docker.com/_/mysql/">Link to stock MySQL container on dockerhub</a></p>
-<h2 id="docker-compose">docker-compose</h2>
+<h2 id="docker-compose">docker-compose<a class="headerlink" href="#docker-compose" title="Permanent link">&para;</a></h2>
 <p>Use docker-compose and pod-charlesreid1 for an example of 
 running a mysql docker container using docker-compose.</p>
 <p>The pod uses an environment variable to pass in the root password 
@@ -347,10 +383,11 @@ to the container, so the process is automated.</p>
 <p>See <code>docker-compose.fixme.yml</code> in 
 <a href="https://git.charlesreid1.com/docker/pod-charlesreid1.git">pod-charlesreid1</a>.</p>
 <p>This repo uses plain <code>docker</code> commands.</p>
-<h2 id="makefile">makefile</h2>
+<h2 id="makefile">makefile<a class="headerlink" href="#makefile" title="Permanent link">&para;</a></h2>
 <p>TLDR: build and run the container with:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>There are a few make tasks:</p>
 <ul>
@@ -362,18 +399,20 @@ to the container, so the process is automated.</p>
 <li><code>make cleanreally</code> - stop the container and dele the data volume</li>
 </ul>
 <p>Some cleanup commands:</p>
-<pre><code>make clean       # stop running container
+<div class="codehilite"><pre><span></span>make clean       # stop running container
 make cleanreally # CAREFUL!!! deletes the data volume 
 make rm_disk     # CAREFUL!!! deletes the data volume
-</code></pre>
+</pre></div>
+
 
 <p>Some startup commands:</p>
-<pre><code>make disk   # make the disk
+<div class="codehilite"><pre><span></span>make disk   # make the disk
 make build  # re-build container
 make run    # run container
-</code></pre>
+</pre></div>
 
-<h2 id="mysql-service-info">mysql service info</h2>
+
+<h2 id="mysql-service-info">mysql service info<a class="headerlink" href="#mysql-service-info" title="Permanent link">&para;</a></h2>
 <p><strong>Port:</strong> 3306</p>
 <p><strong>Service:</strong> MySQL server</p>
 <p>MySQL data is stored in <code>mysql_data/</code>, bound in the 
@@ -382,14 +421,14 @@ container to <code>/var/lib/mysql</code>.</p>
 (create your alternative configuration file in a directory on the host machine and then mount that directory location as /etc/mysql/conf.d inside the mysql container.)</p>
 <p>To load and dump, run another mysql process in the same container.
 The container is called <code>stormy_mysql</code>.</p>
-<h2 id="creatingrestoring-backups">creating/restoring backups</h2>
+<h2 id="creatingrestoring-backups">creating/restoring backups<a class="headerlink" href="#creatingrestoring-backups" title="Permanent link">&para;</a></h2>
 <p>See the directory <a href="https://git.charlesreid1.com/docker/pod-charlesreid1/src/branch/master/utils-mysql"><code>utils-mysql/</code></a>
 in the <a href="https://git.charlesreid1.com/docker/pod-charlesreid1">pod-charlesreid1</a>
 repo.</p>
 <p>(Basically, these create a shell inside the container,
 and run commands to dump the database and copy the data
 out, or copy the data in and restore the database.)</p>
-<h2 id="phpmyadmin">phpMyAdmin</h2>
+<h2 id="phpmyadmin">phpMyAdmin<a class="headerlink" href="#phpmyadmin" title="Permanent link">&para;</a></h2>
 <p>While MySQL is a useful tool, the command line interface
 and SQL syntax is annoying and clunky.</p>
 <p>To fix that, use phpMyAdmin - or better yet, use it in 
@@ -415,6 +454,10 @@ repo for details.</p>
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2018 <a href="https://charlesreid1.com">Charles Reid</a>
+          </div>
         
         powered by
         <a href="http://www.mkdocs.org">MkDocs</a>
