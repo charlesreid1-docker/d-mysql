@@ -1,4 +1,4 @@
-FROM mysql:5.7.28
+FROM mysql:5.7
 MAINTAINER charles@charlesreid1.com
 
 # make mysql data a volume
